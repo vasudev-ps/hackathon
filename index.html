@@ -1,0 +1,88 @@
+<html>
+
+<head>
+    <meta charset = "UTF-8">
+    <title>Neighbourhood MAP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="map" data-bind="click:mapNav"></div>
+    <span class="hamburger" data-bind="click:toggleNav">&#9776;</span>
+    <div id="Nav" class="nav">
+            <a href="javascript:void(0)" class="closebtn" data-bind="click:toggleNav">&times;</a>
+            <div class="nav-content-title">
+                <div class="nav-title">Amenity Search<span>AAP</span> </div>
+                <span class ="nav-subtitle"></span>
+                    <hr>
+            </div>
+            <div class="nav-content">
+                <!-- <label for="area-text"></label> -->
+                <!-- <input id="area-text" type="text" placeholder="Filter Markers by Name:" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off"> -->
+                <!-- <br> -->
+                <!-- <hr> -->
+
+                <!-- <div>
+                    <ul class="markerNames" data-bind="foreach: markerList">
+                        <li>
+                            <span data-bind="text: $data,click:$parent.listClick"></span>
+                        </li>
+                    </ul>
+                </div> -->
+
+                <!-- <div id="wikipedia" class="wikipedia">
+                    <hr>
+                    <span class = "wikititle" data-bind = "text:wikiPara"></span>
+                    <hr>
+                    <div>
+                        <div class="column">
+                            <ul class="names" data-bind="foreach: WikiName">
+                                <li class="wikinames">
+                                    <span data-bind="text: $data"></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="column">
+                            <ul class="links" data-bind="foreach: WikiLinks">
+                                <li>
+                                    <span><a target="_blank" href="" data-bind = "attr : {href:$data}">Read More</a></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> -->
+                <div>
+                    <ul class="markerNames" data-bind="foreach: selectedPlaces">
+                        <li>
+                            <span data-bind="text: $data,click:$parent.listClickRemove"></span>
+                        </li>
+                    </ul>
+                </div>
+                <br>
+                <hr>
+                <div>
+                    <ul class="markerNames" data-bind="foreach: placesList">
+                        <li>
+                            <span data-bind="text: $data,click:$parent.listClickAdd"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    </div>
+    <script>
+            //global arrays for names of marker and
+            //to hold all the markers.
+            //used across 2 java script files
+            var placeName = "mangalore";
+            var markerName = new Array();
+            var placeMarkers = [];
+            var viewModel;// global viewmodel for ko bindings
+    </script>
+    <script src="js/map.js"></script>
+    <script src="js/libs/jquery.min.js"></script>
+    <script src="js/libs/knockout-3.4.1.js"></script>
+    <script src="js/app.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyArWW5wQIxDKLTekSa1Jq_XgyKsrikVjDs&v=3&callback=initMap" onerror="mapError()"></script>
+    </body>
+    </html>
