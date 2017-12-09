@@ -1,5 +1,6 @@
 var map, infoWindow;
 var placeInfoWindow;
+var lengthOfSelectedPlace;
 var resultsFromPlaces = new Array();
 var pos;
 var Address = {
@@ -47,11 +48,13 @@ var Address = {
 
     // function to find the interesting places in mangalore.
     function findPlaces(name) {
+        $("#driver_ratings").css('display','none');
         console.log(name);
         resultsFromPlaces = [];
         var bounds = map.getBounds();
         //var Query = name + " point of interest";
-        for(i = 0; i<name.length;i++){
+        lengthOfSelectedPlace = name.length;
+        for(i = 0; i<lengthOfSelectedPlace;i++){
             var request = {
 			//bounds: bounds,
 			location: pos,
@@ -62,16 +65,21 @@ var Address = {
             placesService.nearbySearch(request, callback);
             console.log(resultsFromPlaces);
         }
-		createMarkersForPlaces(resultsFromPlaces);
+        
         map.setZoom(15);
     }
 	
 	function callback(results, status) {
+        lengthOfSelectedPlace--;
+        //console.log(lengthOfSelectedPlace);
 	  if (status == google.maps.places.PlacesServiceStatus.OK) {
 		for (var i = 0; i < results.length; i++) {
             resultsFromPlaces.push(results[i]);
         }
 	  }
+      if(lengthOfSelectedPlace == 0){
+        createMarkersForPlaces(resultsFromPlaces);
+      }
 	}
     //creating marker for each mached places
     function createMarkersForPlaces(places) {
@@ -163,6 +171,8 @@ var Address = {
     }, function(place, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
             // Set the marker property on this infowindow so it isn't created again.
+             $("#driver_ratings").css('display','block');
+             $("#driver_ratings").text("Ratings For "+place.name);
             infowindow.marker = marker;
             innerHTML = '<div class="infowindow">';
             if (place.name) {
