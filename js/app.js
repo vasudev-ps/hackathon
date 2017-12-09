@@ -35,6 +35,7 @@ viewModel = {
         },
         //handles click of places list
         listClickAdd : function(data, event) {
+            viewModel.selectedPlaces([]);
             var name = event.target.innerHTML;
             var id;//get the id of marker
             var lengthofPlaces = places.length;
@@ -47,7 +48,7 @@ viewModel = {
                 }
             }
             findPlaces(viewModel.selectedPlaces());
-             document.getElementById("Nav").classList.toggle("open");
+            document.getElementById("Nav").classList.toggle("open");
             },
         //handles click of emergency button 
         emergencyClick: function(){
